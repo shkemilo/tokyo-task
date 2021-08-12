@@ -110,6 +110,10 @@ public class OrderController {
 				return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 			}
 			
+			if(order.getOrderStatus() == OrderStatus.SUBMITTED ) {
+				return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+			}
+			
 			orderRepository.delete(order);
 			return new ResponseEntity<String>(String.format("Order %d deleted", id), HttpStatus.OK);
 		}).orElseGet(() -> {
